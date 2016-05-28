@@ -1,6 +1,10 @@
 #pragma once
 
-
+#include "resultive.h"
+#include "stdafx.h"
+#include<iomanip>
+#include <stdio.h>
+#include <iostream>
 
 struct TStack
 {

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "resultive.h"
 
 
@@ -12,7 +13,7 @@ void CreateTXT(arryass** head)
 
 	while (_stricmp(str, "\0"))
 	{
-		strcpy(((*head)->value), str);
+		strcpy_s(((*head)->value), str);
 
 
 	}

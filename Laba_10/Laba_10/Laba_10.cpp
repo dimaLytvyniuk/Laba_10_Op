@@ -1,10 +1,18 @@
 // Laba_10.cpp: определяет точку входа для консольного приложения.
 //
-
+#include "stdafx.h"
+#include<iomanip>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
 #include "resultive.h"
+#include "stack.h"
+#include "queue.h"
+
+using namespace std;
 
 const int n = 20;
-arrayss arr;//массиви рядків із файлів
+arryass arr;//массиви рядків із файлів
 
 int main()
 {
