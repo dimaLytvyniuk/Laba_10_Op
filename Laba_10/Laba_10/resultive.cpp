@@ -182,8 +182,6 @@ int AnalizStrok(char input[100], int pos,char out[100])
 
 	while (head)
 	{
-		//char *se = PopQueue(&head, &tailQueue);
-		//strcat_s(out,100, se);
 		int strl = strlen(out);
 		out[strl]= PopQueue(&head, &tailQueue);
 		out[strl+1] = 0;
