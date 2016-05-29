@@ -1,10 +1,5 @@
 #pragma once
 
-#include "resultive.h"
-#include "stdafx.h"
-#include<iomanip>
-#include <stdio.h>
-#include <iostream>
 
 struct TStack
 {
@@ -15,3 +10,4 @@ struct TStack
 void AddToStack(TStack** tail, char ch);
 char PopStack(TStack** tail);
 void PrintStack(TStack* tail);
+char PeekStack(TStack* tail);

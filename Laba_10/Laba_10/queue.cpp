@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "queue.h"
+#include<iomanip>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+
+using namespace std;
 
 void AddQueue(TQueue **head,TQueue** tail, char c)
 {

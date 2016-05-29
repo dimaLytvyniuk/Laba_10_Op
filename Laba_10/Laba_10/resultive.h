@@ -1,17 +1,11 @@
 #pragma once
-#include<iomanip>
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
-
-using namespace std;
+#include "stdafx.h"
+#include "stack.h"
+#include "queue.h"
 
 
-struct arryass
-{
-	char value[100];
-
-	arryass* next;
-};
-
-void CreateTXT(arryass**);
+void CraeteFile();
+void PrintFile();
+bool Proverka();
+void CreateResult();
+int AnalizStrok(char input[100], int pos, char out[100]);

@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "stack.h"
+#include<iomanip>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+
+using namespace std;
 
 void AddToStack(TStack** tail,char ch)
 {
@@ -43,4 +49,17 @@ void PrintStack(TStack* tail)
 	}
 
 	cout << endl;
+}
+
+char PeekStack(TStack* tail)
+{
+	char ch;
+
+	if (tail)
+	{
+		ch = tail->value;
+		return ch;
+	}
+	else
+		return NULL;
 }
