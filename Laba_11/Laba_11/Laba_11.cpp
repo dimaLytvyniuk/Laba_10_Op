@@ -35,7 +35,7 @@ int main()
 			PrintTree(head);
 		}break;
 		case '2': PrintTree(head); _getch(); break;
-		case '3':PainTree(head,1);_getch(); break;
+		case '3': PaintTree(head); break;
 		case 'E':return 0;
 		case 'e':return 0;
 		default: printf("Не коректное значение!\n");

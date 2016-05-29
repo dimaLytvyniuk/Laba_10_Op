@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <conio.h>
+#include "queue.h"
 
 using namespace std;
 
@@ -38,7 +39,8 @@ bool AddToTree(TREE** head,int value)
 	return res;
 }
 
-/*
+
+
 void PrintTree(TREE* head)
 {
 	if (head != NULL)
@@ -50,7 +52,7 @@ void PrintTree(TREE* head)
 }
 
 
-
+/*
 void PainTreeFinish(TREE* head,int pos)
 {
 	if (head)
@@ -80,3 +82,71 @@ int SearchRozr(int value)
 	}
 }
 */
+
+void PaintTree(TREE* head)
+{
+	TQueue* headQ = NULL;
+	TQueue* tail = NULL;
+	TREE* prom;
+	int level = 0,
+		pos = 40,
+		posLevel = pos - 1,
+		startlevel = 0,
+		startPosition = 0;
+	head->level = level;
+
+	AddQueue(&headQ, &tail, head);
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			printf("\n");
+			level += 1;
+			pos = pos - pow(2,level);
+
+			startPosition = 0;
+
+			for (int j = 1;j <= pow(2,level-1);j++)
+			{
+				for (int i = startPosition;i < pos;i++)
+				{
+					printf(" ");
+				}
+				printf("/   \\");
+
+				startPosition = pos-5;
+			}
+
+			printf("\n");
+			posLevel = pos-2;
+			startlevel = 0;
+		}
+
+		for (int i = startlevel;i < posLevel;i++)
+			printf(" ");
+
+		startlevel = posLevel;
+		posLevel += 6;
+
+		printf("%d", prom->value);
+
+		if (prom->left)
+		{
+			prom->left->level = level + 1;
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			prom->right->level = level + 1;
+			AddQueue(&headQ, &tail, prom->right);
+		}
+
+	}
+
+	_getch();
+
+}
