@@ -85,6 +85,9 @@ int SearchRozr(int value)
 
 void PaintTree(TREE* head)
 {
+	FILE* f;
+	fopen_s(&f, "main.txt", "wt");
+
 	TQueue* headQ = NULL;
 	TQueue* tail = NULL;
 	TREE* prom;
@@ -92,8 +95,11 @@ void PaintTree(TREE* head)
 		pos = 40,
 		posLevel = pos - 1,
 		startlevel = 0,
-		startPosition = 0;
+		startPosition = 0,
+		currPos = 1,
+		y = 0;
 	head->level = level;
+	head->position = 1;
 
 	AddQueue(&headQ, &tail, head);
 
@@ -103,7 +109,9 @@ void PaintTree(TREE* head)
 
 		if (prom->level != level)
 		{
-			printf("\n");
+			currPos = 1;
+			fprintf(f, "\n");
+			//printf("\n");
 			level += 1;
 			pos = pos - pow(2,level);
 
@@ -113,35 +121,51 @@ void PaintTree(TREE* head)
 			{
 				for (int i = startPosition;i < pos;i++)
 				{
-					printf(" ");
+					fprintf_s(f, " ");
+					//printf(" ");
 				}
-				printf("/   \\");
+				fprintf_s(f, "/   \\");
+				//printf("/   \\");
 
 				startPosition = pos-5;
 			}
 
-			printf("\n");
+			//printf("\n");
+			fprintf_s(f, "\n");
 			posLevel = pos-2;
 			startlevel = 0;
 		}
 
-		for (int i = startlevel;i < posLevel;i++)
-			printf(" ");
+		y = 0;
 
-		startlevel = posLevel;
-		posLevel += 6;
+		for (int j = currPos;j <= prom->position;j++)
+		{
+			for (int i = startlevel;i < posLevel;i++)
+			{	//printf(" ");
+				fprintf_s(f, " ");		
+			}
+			y++;
+			startlevel = posLevel;
+			posLevel += 6;
+		}
 
-		printf("%d", prom->value);
+		currPos += y;
+
+		//printf("%d", prom->value);
+		fprintf_s(f, "%d", prom->value);
+		
 
 		if (prom->left)
 		{
 			prom->left->level = level + 1;
+			prom->left->position = pow(2, prom->position)-1;
 			AddQueue(&headQ, &tail, prom->left);
 		}
 
 		if (prom->right)
 		{
 			prom->right->level = level + 1;
+			prom->right->position = pow(2, prom->position) + 1;
 			AddQueue(&headQ, &tail, prom->right);
 		}
 
@@ -149,4 +173,17 @@ void PaintTree(TREE* head)
 
 	_getch();
 
+	fclose(f);
+}
+
+int SearchMax(TREE* head)
+{
+	int res = head->value;
+
+	if (head->right != NULL)
+	{
+		res = SearchMax(head->right);
+	}
+
+	return res;
 }
