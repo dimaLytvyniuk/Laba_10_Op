@@ -34,11 +34,10 @@ int main()
 			CreateTree(&head);
 			PrintTree(head);
 		}break;
-		case '2': PrintTree(head); _getch(); break;
+		case '2': PaintTree(head);  _getch(); break;
 		case '3':
 		{
-			PaintTree(head); 
-			//printf("\n\nMax= %d", SearchMax(head));
+			printf("\n\nMax= %d", SearchMax(head));
 			_getch();
 		}break;
 		case 'E':return 0;
