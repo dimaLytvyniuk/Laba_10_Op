@@ -6,7 +6,8 @@ struct TREE
 {
 	int value;
 	int level=0;
-	int position = 0;
+	int positionX = 0;
+	int positionY = 0;
 	TREE* left;
 	TREE* right;
 };
@@ -17,3 +18,4 @@ void PaintTree(TREE* head);
 int SearchRozr(int value);
 void PainTreeFinish(TREE* head, int pos);
 int SearchMax(TREE* head);
+int SearchRozr(int value);
