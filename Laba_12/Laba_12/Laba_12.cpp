@@ -28,10 +28,10 @@ void Stones(int n, ...)
 		size1 = 0,
 		size2 = 0;
     
-
-	while (val = va_arg(par, int))
+	for (int i = 0;i < n;i++)
 	{
-		mass[size] = val;
+		val = va_arg(par, int);
+		mass[i] = val;
 		cout << val << " ";
 		size++;
 	}
@@ -55,15 +55,17 @@ void Stones(int n, ...)
 	{
 		if (weight1 > weight2)
 		{
-			cucha2= (int*)realloc((void*)cucha2, sizeof(int)*(size2 + 1));
+			cucha2= (int*)realloc((void*)cucha2, (sizeof(int)*(size2 + 1)));
 			cucha2[size2] = mass[i];
 			size2++;
+			weight2 += mass[i];
 		}
 		else
 		{
-			cucha1 = (int*)realloc((void*)cucha1, sizeof(int)*(size1 + 1));
+			cucha1 = (int*)realloc((void*)cucha1, (sizeof(int)*(size1 + 1)));
 			cucha1[size1] = mass[i];
 			size1++;
+			weight1 += mass[i];
 		}
 	}
 
@@ -74,6 +76,7 @@ void Stones(int n, ...)
 
 	cout << endl;
 
+	cout << "Cucha 2:" << endl;
 	for (int i = 0;i < size2;i++)
 		cout << cucha2[i] << " ";
 
@@ -86,7 +89,7 @@ int main()
 {
 	srand(time(NULL));
 
-	Stones(8,SOME_NUMBER, SOME_NUMBER, SOME_NUMBER, SOME_NUMBER, SOME_NUMBER, SOME_NUMBER, SOME_NUMBER);
+	Stones(8,10, 9, 4, 18, 3, 22, 19,8);
 
 	cout << endl;
 	system("pause");
