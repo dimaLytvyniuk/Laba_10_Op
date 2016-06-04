@@ -32,7 +32,6 @@ int main()
 		case '1':
 		{
 			CreateTree(&head);
-			PrintTree(head);
 		}break;
 		case '2': PaintTree(head);  _getch(); break;
 		case '3':
@@ -40,8 +39,8 @@ int main()
 			printf("\n\nMax= %d", SearchMax(head));
 			_getch();
 		}break;
-		case 'E':return 0;
-		case 'e':return 0;
+		case 'E':return 0;break;
+		case 'e':return 0;break;
 		default: printf("Не коректное значение!\n");
 		}
 	}

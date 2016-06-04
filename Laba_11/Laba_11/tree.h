@@ -13,7 +13,7 @@ struct TREE
 };
 
 bool AddToTree(TREE** head, int value);
-void PrintTree(TREE* head);
+//void PrintTree(TREE* head);
 void PaintTree(TREE* head);
 int SearchRozr(int value);
 void PainTreeFinish(TREE* head, int pos);
