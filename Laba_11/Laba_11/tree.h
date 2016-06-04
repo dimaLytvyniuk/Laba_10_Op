@@ -2,20 +2,18 @@
 
 
 
-struct TREE
+struct TREE//структура дерева
 {
-	int value;
-	int level=0;
-	int positionX = 0;
-	int positionY = 0;
-	TREE* left;
-	TREE* right;
+	int value;//ключове поле
+	int level=0;//рівень у дереві
+	int positionX = 0;//позиція по горизонталі
+	int positionY = 0;//позиція по вертикалі
+	TREE* left;//покажчик на ліве піддерево
+	TREE* right;//покажчик на праве піддерево
 };
 
-bool AddToTree(TREE** head, int value);
-void PrintTree(TREE* head);
-void PaintTree(TREE* head);
-int SearchRozr(int value);
-void PainTreeFinish(TREE* head, int pos);
-int SearchMax(TREE* head);
-int SearchRozr(int value);
+bool AddToTree(TREE** head, int value);//додавання до дерева
+void PrintTree(TREE* head);//вивід дерева
+void PaintTree(TREE* head);//друкування дерева
+int SearchRozr(int value);//пошук розрядності числа
+int SearchMax(TREE* head);//пошук максимального елемента у дереві

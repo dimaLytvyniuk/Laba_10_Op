@@ -1,13 +1,13 @@
 #pragma once
 
 
-struct TStack
+struct TStack//структура стеку
 {
-	char value;
-	TStack* prev;
+	char value;//ключове поле
+	TStack* prev;//покажчик на попередній елемент у стеці
 };
 
-void AddToStack(TStack** tail, char ch);
-char PopStack(TStack** tail);
-void PrintStack(TStack* tail);
-char PeekStack(TStack* tail);
+void AddToStack(TStack** tail, char ch);//додавання стеку
+char PopStack(TStack** tail);//видалення зі стеку, та повернення цього елементу
+void PrintStack(TStack* tail);//вивід стеку
+char PeekStack(TStack* tail);//останій елемент у стеці

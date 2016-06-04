@@ -15,11 +15,11 @@ bool AddToTree(TREE** head,int value)
 	bool res=true;
 	TREE* current = new TREE;
 	
-	current->value = value;
+	current->value = value;//створення допоміжного вузла
 	current->left = NULL;
 	current->right = NULL;
 
-	if ((*head))
+	if ((*head))//якщо дерево не порожнє
 	{
 		if ((*head)->value == value)
 			return false;

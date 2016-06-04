@@ -12,8 +12,8 @@ using namespace std;
 
 
 
-void textOutput();
-void CreateTree(TREE** head);
+void textOutput();//меню
+void CreateTree(TREE** head);//створення дерева
 
 int main()
 {
@@ -29,18 +29,18 @@ int main()
 		system("cls");
 		switch (ch)
 		{
-		case '1':
+		case '1'://створення дерева
 		{
 			CreateTree(&head);
 			PrintTree(head);
 		}break;
-		case '2': PaintTree(head);  _getch(); break;
-		case '3':
+		case '2': PaintTree(head);  _getch(); break;//вивід дерева
+		case '3'://пошук максимального
 		{
 			printf("\n\nMax= %d", SearchMax(head));
 			_getch();
 		}break;
-		case 'E':return 0;
+		case 'E':return 0;//вихід
 		case 'e':return 0;
 		default: printf("Не коректное значение!\n");
 		}

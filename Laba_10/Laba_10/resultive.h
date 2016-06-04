@@ -4,8 +4,8 @@
 #include "queue.h"
 
 
-void CraeteFile();
-void PrintFile();
-bool Proverka();
-void CreateResult();
-int AnalizStrok(char input[100], int pos, char out[100]);
+void CraeteFile();//створення файлу
+void PrintFile();//друкування файлу
+bool Proverka();//перевірка на відповідність дужок
+void CreateResult();//вивід тексту між кожними дужками
+int AnalizStrok(char input[100], int pos, char out[100]);//текст між дужок
