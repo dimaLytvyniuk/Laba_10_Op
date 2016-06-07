@@ -479,7 +479,7 @@ void PaintTree(TREE* head)
 }
 
 */
-
+/*
 void PaintTree(TREE* head)
 {
 	int lenY = 0,
@@ -652,9 +652,9 @@ void PaintTree(TREE* head)
 		cout << "ERROR, TO MANY VERTEX";
 	}
 }
+*/
 
 
-/*
 void PaintTree(TREE* head)
 {
 	int lenY = 0,
@@ -706,11 +706,26 @@ void PaintTree(TREE* head)
 
 	levels[maxLevel-1] = 1;
 
-	for (int i = maxLevel-2;i>=0;i--)
-		levels[i] = levels[i +1]*pow(2,maxLevel-i);
+	
 
-	lenY = (levels[0]*2-1 + maxLevel) * 2 + 1;
-	lenX = levels[0] * 2 - 1 + maxLevel + maxLevel * 3 + 3;
+	for (int i = maxLevel - 2;i >= 0;i--)
+	{
+		levels[i] = levels[i + 1] * 2;
+	}
+
+	int sum = 5, j = maxLevel-1;
+
+	for (int i = 0;i <maxLevel-1;i++)
+	{
+		levels[i]+=j;
+		sum += levels[i];
+		j--;
+	}
+
+	levels[0]+=2;
+
+	lenY = (sum + maxLevel) * 2 + 1;
+	lenX = sum+ maxLevel + maxLevel * 3 + 3;
 
 	if (lenX <= 80)
 	{
@@ -766,7 +781,7 @@ void PaintTree(TREE* head)
 		AddQueue(&headQ, &tail, head);
 
 		cin.ignore();
-		_itoa_s(head->value, num, 3, 10);
+		_itoa_s(head->value, num, 4, 10);
 
 		for (int i = 0;i < strlen(num);i++)
 			mass[head->positionY][i] = num[i];
@@ -789,7 +804,7 @@ void PaintTree(TREE* head)
 					mass[prom->positionY + i][prom->positionX + 2 + i] = '\\';
 				}
 
-				_itoa_s(prom->left->value, num, 3, 10);
+				_itoa_s(prom->left->value, num, 4, 10);
 
 				for (int i = 0;i < strlen(num);i++)
 					mass[prom->left->positionY][prom->left->positionX + i] = num[i];
@@ -806,7 +821,7 @@ void PaintTree(TREE* head)
 					mass[prom->positionY - i][prom->positionX + 2 + i] = '/';
 				}
 
-				_itoa_s(prom->right->value, num, 3, 10);
+				_itoa_s(prom->right->value, num, 4, 10);
 
 				for (int i = 0;i < strlen(num);i++)
 					mass[prom->right->positionY][prom->right->positionX + i] = num[i];
@@ -827,7 +842,7 @@ void PaintTree(TREE* head)
 		cout << "ERROR, TO MANY VERTEX";
 	}
 }
-*/
+
 int SearchMax(TREE* head)
 {
 	int res = head->value;
