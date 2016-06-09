@@ -19,3 +19,4 @@ int SearchRozr(int value);
 void PainTreeFinish(TREE* head, int pos);
 int SearchMax(TREE* head);
 int SearchRozr(int value);
+void CreateTreeFile();
