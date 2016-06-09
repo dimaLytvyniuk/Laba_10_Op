@@ -40,7 +40,7 @@ bool AddToTree(TREE** head,int value)
 }
 
 
-
+/*
 void PrintTree(TREE* head)
 {
 	if (head != NULL)
@@ -51,119 +51,6 @@ void PrintTree(TREE* head)
 	}
 }
 
-
-/*
-void PainTreeFinish(TREE* head,int pos)
-{
-	if (head)
-	{
-		for (int i = 0;i < pos;i++)
-		{
-			printf(" ");
-		}
-
-		printf("%d", head->value);
-
-	}
-	
-}
-
-
-*/
-/*
-void PaintTree(TREE* head)
-{
-	FILE* f;
-	fopen_s(&f, "main.txt", "wt");
-
-	TQueue* headQ = NULL;
-	TQueue* tail = NULL;
-	TREE* prom;
-	int level = 0,
-		pos = 40,
-		posLevel = pos - 1,
-		startlevel = 0,
-		startPosition = 0,
-		currPos = 1,
-		y = 0;
-	head->level = level;
-	head->position = 1;
-
-	AddQueue(&headQ, &tail, head);
-
-	while (headQ)
-	{
-		prom = PopQueue(&headQ, &tail);
-
-		if (prom->level != level)
-		{
-			currPos = 1;
-			fprintf(f, "\n");
-			//printf("\n");
-			level += 1;
-			pos = pos - pow(2,level);
-
-			startPosition = 0;
-
-			for (int j = 1;j <= pow(2,level-1);j++)
-			{
-				for (int i = startPosition;i < pos;i++)
-				{
-					fprintf_s(f, " ");
-					//printf(" ");
-				}
-				fprintf_s(f, "/   \\");
-				//printf("/   \\");
-
-				startPosition = pos-5;
-			}
-
-			//printf("\n");
-			fprintf_s(f, "\n");
-			posLevel = pos-2;
-			startlevel = 0;
-		}
-
-		y = 0;
-
-		for (int j = currPos;j <= prom->position;j++)
-		{
-			for (int i = startlevel;i < posLevel;i++)
-			{	//printf(" ");
-				fprintf_s(f, " ");		
-			}
-			y++;
-			startlevel = posLevel;
-			posLevel += 6;
-		}
-
-		currPos += y;
-
-		//printf("%d", prom->value);
-		fprintf_s(f, "%d", prom->value);
-		
-
-		if (prom->left)
-		{
-			prom->left->level = level + 1;
-			prom->left->position = pow(2, prom->position)-1;
-			AddQueue(&headQ, &tail, prom->left);
-		}
-
-		if (prom->right)
-		{
-			prom->right->level = level + 1;
-			prom->right->position = pow(2, prom->position) + 1;
-			AddQueue(&headQ, &tail, prom->right);
-		}
-
-	}
-
-	_getch();
-
-	fclose(f);
-}
-*/
 
 void PaintTree(TREE* head)
 {
@@ -261,7 +148,7 @@ void PaintTree(TREE* head)
 	num[0] = 0;
 	rozr = SearchRozr(head->value);
 
-	for (int i = rozr;i <= 3;i++)
+	for (int i = rozr;i < 3;i++)
 	{
 		int strl = strlen(mass[head->positionY]);
 		mass[head->positionY][strl] = ' ';
@@ -324,7 +211,7 @@ void PaintTree(TREE* head)
 			num[0] = 0;
 			rozr = SearchRozr(prom->left->value);
 
-			for (int i = rozr;i <= 3;i++)
+			for (int i = rozr;i < 3;i++)
 			{
 				int strl = strlen(mass[prom->left->positionY]);
 				mass[prom->left->positionY][strl] = ' ';
@@ -367,7 +254,7 @@ void PaintTree(TREE* head)
 			num[0] = 0;
 			rozr = SearchRozr(prom->right->value);
 
-			for (int i = rozr;i <= 3;i++)
+			for (int i = rozr;i < 3;i++)
 			{
 				int strl = strlen(mass[prom->right->positionY]);
 				mass[prom->right->positionY][strl] = ' ';
@@ -405,16 +292,18 @@ void PaintTree(TREE* head)
 						}
 					}
 				}
-
-				if (prom->right)
+				else
 				{
-					if (i != prom->right->positionY)
+					if (prom->right)
 					{
-						for (int j = 0;j < 3;j++)
+						if (i != prom->right->positionY)
 						{
-							int strl = strlen(mass[i]);
-							mass[i][strl] = ' ';
-							mass[i][strl + 1] = 0;
+							for (int j = 0;j < 3;j++)
+							{
+								int strl = strlen(mass[i]);
+								mass[i][strl] = ' ';
+								mass[i][strl + 1] = 0;
+							}
 						}
 					}
 				}
@@ -426,6 +315,531 @@ void PaintTree(TREE* head)
 	for (int i = 0;i < len;i++)
 	{
 		cout << mass[i] << endl;
+	}
+}
+*/
+/*
+void PaintTree(TREE* head)
+{
+	int lenY = 0,
+		lenX,
+		level = 0,
+		maxLevel = 0,
+		rozr = 0,
+		topLevel = 0;
+	TQueue* headQ = NULL,
+		*tail = NULL;
+	TREE* prom;
+	char** mass,
+		num[4] = "";
+
+	head->level = level;
+
+	AddQueue(&headQ, &tail, head);
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			level++;
+		}
+
+		if (prom->left)
+		{
+			prom->left->level = level + 1;
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			prom->right->level = level + 1;
+			AddQueue(&headQ, &tail, prom->right);
+		}
+	}
+
+	headQ = NULL;
+	tail = NULL;
+	maxLevel = level;
+	level = 0;
+
+	lenY = (((1 + maxLevel)*maxLevel) / 2 + maxLevel) * 2 + 1;
+	lenX = ((1 + maxLevel)*maxLevel) / 2 + maxLevel * 3 + 3;
+
+	mass = new char*[lenY];
+
+	for (int i = 0;i < lenY;i++)
+		mass[i] = new char[lenX+1];
+
+	for (int i = 0;i < lenY;i++)
+		mass[i][0] = 0;
+
+	for (int i = 0;i < lenY;i++)
+		for (int j = 0;j < lenX;j++)
+		{
+			int strl = strlen(mass[i]);
+			mass[i][strl] = ' ';
+			mass[i][strl + 1] = 0;
+		}
+
+	AddQueue(&headQ, &tail, head);
+
+	head->positionY = lenY / 2;
+	head->positionX = 0;
+
+	maxLevel++;
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			level++;
+		}
+
+		if (prom->left)
+		{
+			prom->left->positionY = prom->positionY + maxLevel - level;
+			prom->left->positionX = prom->positionX + maxLevel - level+2;
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			prom->right->positionY = prom->positionY - maxLevel + level;
+			prom->right->positionX = prom->positionX + maxLevel - level+2;
+			AddQueue(&headQ, &tail, prom->right);
+		}
+	}
+
+	headQ = NULL;
+	tail = NULL;
+	level = 0;
+
+	AddQueue(&headQ, &tail, head);
+
+	cin.ignore();
+	_itoa_s(head->value, num, 3, 10);
+	
+	for (int i = 0;i < strlen(num);i++)
+		mass[head->positionY][i] = num[i];
+
+	num[0] = 0;
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			level++;
+		}
+
+		if (prom->left)
+		{
+			for (int i = 1;i < maxLevel - level;i++)
+			{
+				mass[prom->positionY + i][prom->positionX + 2 + i] = '\\';
+			}
+
+			_itoa_s(prom->left->value, num, 3, 10);
+
+			for (int i = 0;i < strlen(num);i++)
+				mass[prom->left->positionY][prom->left->positionX+i] = num[i];
+
+			num[0] = 0;
+
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			for (int i = 1;i < maxLevel - level;i++)
+			{
+				mass[prom->positionY - i][prom->positionX + 2 + i] = '/';
+			}
+
+			_itoa_s(prom->right->value, num, 3, 10);
+
+			for (int i = 0;i < strlen(num);i++)
+				mass[prom->right->positionY][prom->right->positionX + i] = num[i];
+
+			num[0] = 0;
+
+			AddQueue(&headQ, &tail, prom->right);
+		}
+	}
+
+	for (int i = 0;i < lenY;i++)
+	{
+		cout << mass[i] << endl;
+	}
+}
+
+*/
+/*
+void PaintTree(TREE* head)
+{
+	int lenY = 0,
+		lenX,
+		level = 0,
+		maxLevel = 0,
+		rozr = 0,
+		topLevel = 0,
+		*levels;
+	TQueue* headQ = NULL,
+		*tail = NULL;
+	TREE* prom;
+	char** mass,
+		num[4] = "";
+
+	head->level = level;
+
+	AddQueue(&headQ, &tail, head);
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			level++;
+		}
+
+		if (prom->left)
+		{
+			prom->left->level = level + 1;
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			prom->right->level = level + 1;
+			AddQueue(&headQ, &tail, prom->right);
+		}
+	}
+
+	headQ = NULL;
+	tail = NULL;
+	maxLevel = level;
+	level = 0;
+
+	topLevel = (maxLevel - 1) * 3 + 1;
+	levels = new int[maxLevel];
+
+	levels[0] = topLevel;
+
+	for (int i = 1;i < maxLevel;i++)
+		levels[i] = levels[i - 1] - 3;
+
+	lenY = (((1 + topLevel)*maxLevel) / 2 + maxLevel) * 2 + 1;
+	lenX = ((1 + topLevel)*maxLevel) / 2 + maxLevel * 3 + 3;
+
+	if (lenX <= 80)
+	{
+		mass = new char*[lenY];
+
+		for (int i = 0;i < lenY;i++)
+			mass[i] = new char[lenX + 1];
+
+		for (int i = 0;i < lenY;i++)
+			mass[i][0] = 0;
+
+		for (int i = 0;i < lenY;i++)
+			for (int j = 0;j < lenX;j++)
+			{
+				int strl = strlen(mass[i]);
+				mass[i][strl] = ' ';
+				mass[i][strl + 1] = 0;
+			}
+
+		AddQueue(&headQ, &tail, head);
+
+		head->positionY = lenY / 2;
+		head->positionX = 0;
+
+		while (headQ)
+		{
+			prom = PopQueue(&headQ, &tail);
+
+			if (prom->level != level)
+			{
+				level++;
+			}
+
+			if (prom->left)
+			{
+				prom->left->positionY = prom->positionY + levels[level] + 1;
+				prom->left->positionX = prom->positionX + levels[level] + 3;
+				AddQueue(&headQ, &tail, prom->left);
+			}
+
+			if (prom->right)
+			{
+				prom->right->positionY = prom->positionY - levels[level]-1;
+				prom->right->positionX = prom->positionX + levels[level] + 3;
+				AddQueue(&headQ, &tail, prom->right);
+			}
+		}
+
+		headQ = NULL;
+		tail = NULL;
+		level = 0;
+
+		AddQueue(&headQ, &tail, head);
+
+		cin.ignore();
+		_itoa_s(head->value, num, 3, 10);
+
+		for (int i = 0;i < strlen(num);i++)
+			mass[head->positionY][i] = num[i];
+
+		num[0] = 0;
+
+		while (headQ)
+		{
+			prom = PopQueue(&headQ, &tail);
+
+			if (prom->level != level)
+			{
+				level++;
+			}
+
+			if (prom->left)
+			{
+				for (int i = 1;i <= levels[level];i++)
+				{
+					mass[prom->positionY + i][prom->positionX + 2 + i] = '\\';
+				}
+
+				_itoa_s(prom->left->value, num, 3, 10);
+
+				for (int i = 0;i < strlen(num);i++)
+					mass[prom->left->positionY][prom->left->positionX + i] = num[i];
+
+				num[0] = 0;
+
+				AddQueue(&headQ, &tail, prom->left);
+			}
+
+			if (prom->right)
+			{
+				for (int i = 1;i <=levels[level];i++)
+				{
+					mass[prom->positionY - i][prom->positionX + 2 + i] = '/';
+				}
+
+				_itoa_s(prom->right->value, num, 3, 10);
+
+				for (int i = 0;i < strlen(num);i++)
+					mass[prom->right->positionY][prom->right->positionX + i] = num[i];
+
+				num[0] = 0;
+
+				AddQueue(&headQ, &tail, prom->right);
+			}
+		}
+
+		for (int i = 0;i < lenY;i++)
+		{
+			cout << mass[i] << endl;
+		}
+	}
+	else
+	{
+		cout << "ERROR, TO MANY VERTEX";
+	}
+}
+*/
+
+
+void PaintTree(TREE* head)
+{
+	int lenY = 0,
+		lenX,
+		level = 0,
+		maxLevel = 0,
+		rozr = 0,
+		topLevel = 0,
+		*levels;
+	TQueue* headQ = NULL,
+		*tail = NULL;
+	TREE* prom;
+	char** mass,
+		num[4] = "";
+
+	head->level = level;
+
+	AddQueue(&headQ, &tail, head);
+
+	while (headQ)
+	{
+		prom = PopQueue(&headQ, &tail);
+
+		if (prom->level != level)
+		{
+			level++;
+		}
+
+		if (prom->left)
+		{
+			prom->left->level = level + 1;
+			AddQueue(&headQ, &tail, prom->left);
+		}
+
+		if (prom->right)
+		{
+			prom->right->level = level + 1;
+			AddQueue(&headQ, &tail, prom->right);
+		}
+	}
+
+	headQ = NULL;
+	tail = NULL;
+	maxLevel = level;
+	level = 0;
+
+	//topLevel = (maxLevel - 1) * 3 + 1;
+	levels = new int[maxLevel];
+
+	levels[maxLevel-1] = 1;
+
+	
+
+	for (int i = maxLevel - 2;i >= 0;i--)
+	{
+		levels[i] = levels[i + 1] * 2;
+	}
+
+	int sum = 5, j = maxLevel-1;
+
+	for (int i = 0;i <maxLevel-1;i++)
+	{
+		levels[i]+=j;
+		sum += levels[i];
+		j--;
+	}
+
+	levels[0]+=2;
+
+	lenY = (sum + maxLevel) * 2 + 1;
+	lenX = sum+ maxLevel + maxLevel * 3 + 3;
+
+	if (lenX <= 80)
+	{
+		mass = new char*[lenY];
+
+		for (int i = 0;i < lenY;i++)
+			mass[i] = new char[lenX + 1];
+
+		for (int i = 0;i < lenY;i++)
+			mass[i][0] = 0;
+
+		for (int i = 0;i < lenY;i++)
+			for (int j = 0;j < lenX;j++)
+			{
+				int strl = strlen(mass[i]);
+				mass[i][strl] = ' ';
+				mass[i][strl + 1] = 0;
+			}
+
+		AddQueue(&headQ, &tail, head);
+
+		head->positionY = lenY / 2;
+		head->positionX = 0;
+
+		while (headQ)
+		{
+			prom = PopQueue(&headQ, &tail);
+
+			if (prom->level != level)
+			{
+				level++;
+			}
+
+			if (prom->left)
+			{
+				prom->left->positionY = prom->positionY + levels[level] + 1;
+				prom->left->positionX = prom->positionX + levels[level] + 3;
+				AddQueue(&headQ, &tail, prom->left);
+			}
+
+			if (prom->right)
+			{
+				prom->right->positionY = prom->positionY - levels[level] - 1;
+				prom->right->positionX = prom->positionX + levels[level] + 3;
+				AddQueue(&headQ, &tail, prom->right);
+			}
+		}
+
+		headQ = NULL;
+		tail = NULL;
+		level = 0;
+
+		AddQueue(&headQ, &tail, head);
+
+		cin.ignore();
+		_itoa_s(head->value, num, 4, 10);
+
+		for (int i = 0;i < strlen(num);i++)
+			mass[head->positionY][i] = num[i];
+
+		num[0] = 0;
+
+		while (headQ)
+		{
+			prom = PopQueue(&headQ, &tail);
+
+			if (prom->level != level)
+			{
+				level++;
+			}
+
+			if (prom->left)
+			{
+				for (int i = 1;i <= levels[level];i++)
+				{
+					mass[prom->positionY + i][prom->positionX + 2 + i] = '\\';
+				}
+
+				_itoa_s(prom->left->value, num, 4, 10);
+
+				for (int i = 0;i < strlen(num);i++)
+					mass[prom->left->positionY][prom->left->positionX + i] = num[i];
+
+				num[0] = 0;
+
+				AddQueue(&headQ, &tail, prom->left);
+			}
+
+			if (prom->right)
+			{
+				for (int i = 1;i <= levels[level];i++)
+				{
+					mass[prom->positionY - i][prom->positionX + 2 + i] = '/';
+				}
+
+				_itoa_s(prom->right->value, num, 4, 10);
+
+				for (int i = 0;i < strlen(num);i++)
+					mass[prom->right->positionY][prom->right->positionX + i] = num[i];
+
+				num[0] = 0;
+
+				AddQueue(&headQ, &tail, prom->right);
+			}
+		}
+
+		for (int i = 0;i < lenY;i++)
+		{
+			cout << mass[i] << endl;
+		}
+	}
+	else
+	{
+		cout << "ERROR, TO MANY VERTEX";
 	}
 }
 
