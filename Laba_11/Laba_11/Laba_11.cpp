@@ -94,4 +94,6 @@ void CreateTree(TREE** head)
 		fread_s(&value, sizeof(int), sizeof(int), 1, f);
 		AddToTree(head, value);
 	}
+
+	fclose(f);
 }

@@ -118,7 +118,7 @@ void PaintTree(TREE* head)
 		levels[i] = levels[i + 1] * 2;
 	}
 
-	int sum = 5, j = maxLevel-1;
+	int sum = 3, j = maxLevel-1;
 
 	for (int i = 0;i <maxLevel-1;i++)
 	{
@@ -137,10 +137,10 @@ void PaintTree(TREE* head)
 
 		for (int i = 0;i < lenY;i++)
 			mass[i] = new char[lenX + 1];
-
+		
 		for (int i = 0;i < lenY;i++)
 			mass[i][0] = 0;
-
+			
 		for (int i = 0;i < lenY;i++)
 			for (int j = 0;j < lenX;j++)
 			{
@@ -152,7 +152,7 @@ void PaintTree(TREE* head)
 		AddQueue(&headQ, &tail, head);
 
 		head->positionY = lenY / 2;
-		head->positionX = 0;
+		//head->positionX = 0;
 
 		while (headQ)
 		{
@@ -184,7 +184,7 @@ void PaintTree(TREE* head)
 
 		AddQueue(&headQ, &tail, head);
 
-		cin.ignore();
+		//cin.ignore();
 		_itoa_s(head->value, num, 4, 10);
 
 		for (int i = 0;i < strlen(num);i++)
