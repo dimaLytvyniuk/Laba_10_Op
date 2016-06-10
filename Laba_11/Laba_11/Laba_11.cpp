@@ -14,6 +14,7 @@ using namespace std;
 
 void textOutput();
 void CreateTree(TREE** head);
+void CreateProgressiveTree(TREE** head);
 
 int main()
 {
@@ -41,7 +42,8 @@ int main()
 		}break;
 		case '4':
 		{
-			CreateTree(&head);
+			//CreateTree(&head);
+			CreateProgressiveTree(&head);
 		}break;
 		case 'E':return 0;break;
 		case 'e':return 0;break;
@@ -97,3 +99,16 @@ void CreateTree(TREE** head)
 
 	fclose(f);
 }
+
+void CreateProgressiveTree(TREE** head)
+{
+	cout << "Input data to tree\n\n";
+	int value = 0;
+	cin >> value;
+
+	AddProgressive(head, value);
+
+	cout << "Copletre!";
+	_getch();
+}
+

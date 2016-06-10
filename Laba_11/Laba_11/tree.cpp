@@ -10,6 +10,24 @@ using namespace std;
 
 const int start = 39;
 
+void AddProgressive(TREE** head,int value)
+{
+	bool res = true;
+	TREE* current = new TREE;
+
+	current->value = value;
+	current->left = NULL;
+	current->right = NULL;
+
+	(*head) = current;
+
+	if (value > 1)
+	{
+		AddProgressive(&(*head)->left, value - 1);
+		AddProgressive(&(*head)->right, value - 1);
+	}
+}
+
 bool AddToTree(TREE** head,int value)
 {
 	bool res=true;
@@ -110,7 +128,7 @@ void PaintTree(TREE* head)
 	levels = new int[maxLevel];
 
 	levels[maxLevel-1] = 1;
-
+	levels[maxLevel - 2] = 2;
 	
 
 	for (int i = maxLevel - 2;i >= 0;i--)
@@ -118,16 +136,16 @@ void PaintTree(TREE* head)
 		levels[i] = levels[i + 1] * 2;
 	}
 
-	int sum = 3, j = maxLevel-1;
+	int sum = 6, j = maxLevel-1;
 
-	for (int i = 0;i <maxLevel-1;i++)
+	for (int i = 0;i <maxLevel-2;i++)
 	{
 		levels[i]+=j;
 		sum += levels[i];
 		j--;
 	}
 
-	levels[0]+=2;
+	levels[0]+=3;
 
 	lenY = (sum + maxLevel) * 2 + 1;
 	lenX = sum+ maxLevel + maxLevel * 3 + 3;
